@@ -122,13 +122,13 @@ const authenticateToken = (req, res, next) => {
 
 // Endpoint to get products with optional filtering
 app.get("/products", authenticateToken, async(req, res) => {
-  const { category = "", type = "", search = "" } = req.query;
 
   const selectProductQuery = `
     SELECT * FROM products
-    WHERE name LIKE ? AND category=? AND type=?;`;
+  `;
 
-  const dbProducts = await db.all(selectProductQuery, [`%${search}%`, category, type]);
+  const dbProducts = await db.all(selectProductQuery);
+  console.log(dbProducts)
   res.send(dbProducts);
 });
 
